@@ -1,0 +1,19 @@
+//Print all data
+package com.app;
+
+import org.hibernate.Session;
+
+import com.app.util.HibernateUtil;
+
+public class FirstActivity {
+	public static void main(String[] args) {
+		
+		try(Session session=HibernateUtil.getSessionFactory().openSession()) 
+		{
+			String _sql="Select * from employee";
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}

@@ -1,0 +1,23 @@
+package com.app;
+
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+
+import com.app.util.HibernateUtil;
+
+public class Aggregate_Function {
+
+	public static void main(String[] args) {
+		try(Session session=HibernateUtil.getSessionFactory().openSession()) 
+		{
+			String _sql="Select avg(salary) from employee";
+			NativeQuery<Double> _query=session.createNativeQuery(_sql,Double.class);
+			
+			double _Average=_query.uniqueResult();
+			System.out.println(_Average);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}

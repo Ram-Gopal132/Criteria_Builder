@@ -1,0 +1,4 @@
+INDEX VERSION 1.132+C:\Users\Ramgo\OneDrive\Documents\Criteria_Builder\.metadata\.plugins\org.eclipse.jdt.core
+48026320.index
+1865797976.index
+1827142479.index

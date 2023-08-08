@@ -1,0 +1,47 @@
+package com.app;
+
+import java.util.Scanner;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.procedure.ProcedureCall;
+import org.hibernate.procedure.ProcedureOutputs;
+import org.hibernate.query.procedure.ProcedureParameter;
+
+import com.app.util.HibernateUtil;
+
+import jakarta.persistence.ParameterMode;
+
+public class StoredProcedure {
+
+	public static void main(String[] args) {
+		
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter the code");
+		int _code=sc.nextInt();
+		
+		Transaction transaction=null;
+		try (Session session=HibernateUtil.getSessionFactory().openSession())
+		{
+			transaction=session.beginTransaction();
+			
+			ProcedureCall call=session.createStoredProcedureCall("getSalary");
+			ProcedureParameter<Integer> in_parameter=call.registerParameter(1, Integer.class, ParameterMode.IN);
+			call.setParameter(in_parameter,_code);
+			
+			call.registerParameter(1,Double.class, ParameterMode.OUT);
+			ProcedureOutputs output=call.getOutputs();
+			
+			System.out.println("Employee Name::"+output.getOutputParameterValue(1));
+			
+			
+			transaction.commit();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+			System.out.println("Reason of error"+e.getMessage());
+		}
+				
+	}
+}
